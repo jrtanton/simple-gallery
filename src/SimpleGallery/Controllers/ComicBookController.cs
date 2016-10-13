@@ -8,9 +8,16 @@ namespace SimpleGallery.Controllers
 {
     public class ComicBookController : Controller
     {
-        public string Detail()
+        public ActionResult Detail()
         {
-            return "Hello from the comic book controller.";
+
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Wednesday)
+            {
+                return Redirect("/");
+            }
+
+            return Content("Wecome to the comic book page.");
+            
         }
     }
 }
