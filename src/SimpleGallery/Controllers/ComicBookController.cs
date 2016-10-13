@@ -1,4 +1,5 @@
-﻿using SimpleGallery.Models;
+﻿using SimpleGallery.Data;
+using SimpleGallery.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +10,21 @@ namespace SimpleGallery.Controllers
 {
     public class ComicBookController : Controller
     {
-        public ActionResult Detail()
+        private ComicBookRepository _comicBookRepository = null;
+
+        public ComicBookController()
         {
-            var comicBook = new ComicBook()
+            _comicBookRepository = new ComicBookRepository();
+        }
+
+        public ActionResult Detail(int? id)
+        {
+            if(id == null)
             {
-                SeriesTitle = "The Amazing Spider-Man",
-                IssueNumber = 700,
-                DescriptionHtml = "<p>Final issue! Witness the final hours of Doctor Octopus' life and his one, last, great act of revenge! Even if Spider-Man survives... <strong>will Peter Parker?</strong></p>",
-                Artists = new Artist[]
-                {
-                    new Artist() { Name = "dan slott", Role = "script"},
-                    new Artist() { Name = "humberto ramos", Role = "pencils"},
-                    new Artist() { Name = "victor olazaba", Role = "inks"},
-                    new Artist() { Name = "edgar delgado", Role = "colors"},
-                    new Artist() { Name = "chris eliopoulos", Role = "letters"}
-                }
-            };
-          
+                return HttpNotFound();
+            }
+
+            var comicBook = _comicBookRepository.GetComicBook(id.Value);
             return View(comicBook);
         }
     }
