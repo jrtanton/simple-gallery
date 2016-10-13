@@ -10,14 +10,7 @@ namespace SimpleGallery.Controllers
     {
         public ActionResult Detail()
         {
-
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Wednesday)
-            {
-                return Redirect("/");
-            }
-
-            return Content("Wecome to the comic book page.");
-            
+            return View();
         }
     }
 }
